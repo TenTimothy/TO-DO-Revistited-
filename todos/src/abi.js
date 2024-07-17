@@ -1,4 +1,4 @@
-export const contractAdress = "0x75FB3fA4374911273A2522252723a2F4582942D9"
+export const contractAdress = "0x75FB3fA4374911273A2522252723a2F4582942D9";
 
 export const abi = [
     {
@@ -146,8 +146,4 @@ export const abi = [
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ]
-
-
-
-
+  ];
