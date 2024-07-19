@@ -1,37 +1,48 @@
-import React, { useEffect, useState } from 'react';
-
-const TodoList = ({ readContract }) => {
-    const [todos, setTodos] = useState([]);
-
-    const fetchTodos = async () => {
-        try {
-            const indexes = await readContract.getIndexList();
-            const temp = [];
-            for (const i of indexes) {
-                const todo = await readContract.todos(i);
-                temp.push(todo);
-            }
-            setTodos(temp);
-        } catch (error) {
-            console.error("Error fetching todos:", error);
-        }
+const TodoList = ({ todos, wallet, contract, refreshTodos, refreshWallet }) => {
+    const handleToggleTodo = async (id) => {
+      try {
+        const tx = await contract.toggleTodo(id);
+        await tx.wait();
+        refreshTodos();
+        refreshWallet(wallet.accounts);
+      } catch (error) {
+        console.error('Failed to toggle todo:', error);
+      }
     };
-
-    useEffect(() => {
-        fetchTodos();
-    }, [readContract]);
-
+  
+    const handleDeleteTodo = async (id) => {
+      try {
+        const tx = await contract.removeTodo(id);
+        await tx.wait();
+        refreshTodos();
+        refreshWallet(wallet.accounts);
+      } catch (error) {
+        console.error('Failed to delete todo:', error);
+      }
+    };
+  
     return (
-        <div>
-            <ul>
-                {todos.map((todo, index) => (
-                    <li key={index}>
-                        {todo.text}
-                    </li>
-                ))}
-            </ul>
-        </div>
+      <ul className="todo-list">
+        {todos.length > 0 ? (
+          todos.map((todo) => (
+            <li key={todo.id} className="todo-item">
+              <span className={`todo-text ${todo.completed ? 'completed' : ''}`}>
+                {todo.text}
+              </span>
+              <button onClick={() => handleToggleTodo(todo.id)} className="toggle-todo-button">
+                {todo.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button onClick={() => handleDeleteTodo(todo.id)} className="delete-todo-button">
+                Delete
+              </button>
+            </li>
+          ))
+        ) : (
+          <li>No todos available</li>
+        )}
+      </ul>
     );
-};
-
-export default TodoList;
+  };
+  
+  export default TodoList;
+  

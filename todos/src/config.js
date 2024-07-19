@@ -1,149 +1,153 @@
-export const contractAdress = "0x75FB3fA4374911273A2522252723a2F4582942D9";
+const config = {
+  contractAddress: '0x75FB3fA4374911273A2522252723a2F4582942D9',
 
-export const abi = [
+  abi: [
     {
-      "inputs": [],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'constructor',
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
+          indexed: false,
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
+        },
       ],
-      "name": "RemovedTodo",
-      "type": "event"
+      name: 'RemovedTodo',
+      type: 'event',
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
+          indexed: false,
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
         },
         {
-          "indexed": false,
-          "internalType": "string",
-          "name": "text",
-          "type": "string"
+          indexed: false,
+          internalType: 'string',
+          name: 'text',
+          type: 'string',
         },
         {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "completed",
-          "type": "bool"
-        }
+          indexed: false,
+          internalType: 'bool',
+          name: 'completed',
+          type: 'bool',
+        },
       ],
-      "name": "TodoCreated",
-      "type": "event"
+      name: 'TodoCreated',
+      type: 'event',
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
+          indexed: false,
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
         },
         {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "completed",
-          "type": "bool"
-        }
+          indexed: false,
+          internalType: 'bool',
+          name: 'completed',
+          type: 'bool',
+        },
       ],
-      "name": "ToggleTodo",
-      "type": "event"
+      name: 'ToggleTodo',
+      type: 'event',
     },
     {
-      "inputs": [],
-      "name": "todoCount",
-      "outputs": [
+      inputs: [],
+      name: 'todoCount',
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256',
+        },
       ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      stateMutability: 'view',
+      type: 'function',
+      constant: true,
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256',
+        },
       ],
-      "name": "todos",
-      "outputs": [
+      name: 'todos',
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
         },
         {
-          "internalType": "string",
-          "name": "text",
-          "type": "string"
+          internalType: 'string',
+          name: 'text',
+          type: 'string',
         },
         {
-          "internalType": "bool",
-          "name": "completed",
-          "type": "bool"
-        }
+          internalType: 'bool',
+          name: 'completed',
+          type: 'bool',
+        },
       ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      stateMutability: 'view',
+      type: 'function',
+      constant: true,
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "string",
-          "name": "_content",
-          "type": "string"
-        }
+          internalType: 'string',
+          name: '_content',
+          type: 'string',
+        },
       ],
-      "name": "createTodo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'createTodo',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "_id",
-          "type": "uint256"
-        }
+          internalType: 'uint256',
+          name: '_id',
+          type: 'uint256',
+        },
       ],
-      "name": "toggleTodo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'toggleTodo',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "_id",
-          "type": "uint256"
-        }
+          internalType: 'uint256',
+          name: '_id',
+          type: 'uint256',
+        },
       ],
-      "name": "removeTodo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
+      name: 'removeTodo',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+  ],
+};
+
+export default config;
