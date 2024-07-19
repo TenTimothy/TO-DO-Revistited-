@@ -1,4 +1,3 @@
-// src/components/AddTodo.jsx
 const AddTodo = ({ input, setInput, wallet, contract, refreshTodos, refreshWallet }) => {
     const handleAddTodo = async (event) => {
       event.preventDefault();

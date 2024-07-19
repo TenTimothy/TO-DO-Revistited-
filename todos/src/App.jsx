@@ -8,28 +8,22 @@ import BlockchainTodoService from './service';
 
 function App() {
   const [wallet, setWallet] = useState({ accounts: [], balance: '' });
-  const [readOnlyContract, setReadOnlyContract] = useState();
-  const [writableContract, setWritableContract] = useState();
+  const [readOnlyContract, setReadOnlyContract] = useState(null);
+  const [writableContract, setWritableContract] = useState(null);
   const [todos, setTodos] = useState([]);
   const [newTodoText, setNewTodoText] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const todoService = new BlockchainTodoService();
 
-  useEffect(() => {
-    const setupProvider = async () => {
-      if (window.ethereum) {
-        window.provider = new ethers.BrowserProvider(window.ethereum);
-      } else {
-        console.error('ethers.js: web3 provider not found. please install a wallet with web3 support.');
-        return;
-      }
-
+  const setupProvider = async () => {
+    if (window.ethereum) {
+      window.provider = new ethers.BrowserProvider(window.ethereum);
       try {
         const signer = await window.provider.getSigner();
         const accounts = await window.ethereum.request({
           method: 'eth_requestAccounts',
         });
-
 
         setReadOnlyContract(todoService.getReadContract(window.provider));
         setWritableContract(todoService.getWriteContract(signer));
@@ -45,18 +39,16 @@ function App() {
       } catch (error) {
         console.error('Error setting up provider:', error);
       }
-    };
-
-    setupProvider();
-  }, []);
+    } else {
+      console.error('ethers.js: web3 provider not found. please install a wallet with web3 support.');
+    }
+  };
 
   const updateWalletInfo = async (accounts) => {
     if (accounts.length > 0) {
       try {
         const balance = await window.provider.getBalance(accounts[0]);
-        const formattedBalance = ethers.utils ? ethers.utils.formatEther(balance.toString()) : (BigInt(balance).toString() / 1e18).toString();
-        console.log("Balance: ", formattedBalance);
-        setWallet({ accounts, balance: formattedBalance });
+        setWallet({ accounts, balance: ethers.formatEther(balance) });
       } catch (error) {
         console.error('Error fetching balance:', error);
       }
@@ -80,6 +72,8 @@ function App() {
       setTodos(todosArray);
     } catch (error) {
       console.error('Error fetching todos:', error);
+    } finally {
+      setLoading(false);
     }
   }, [readOnlyContract]);
 
@@ -93,24 +87,38 @@ function App() {
     <div className="App">
       <h1>Blockchain Todo List</h1>
 
-      <WalletConnect wallet={wallet} />
+      {wallet.accounts.length === 0 ? (
+        <button onClick={setupProvider} className="connect-wallet-button">
+          Connect Wallet
+        </button>
+      ) : (
+        <>
+          <WalletConnect wallet={wallet} />
 
-      <AddTodo
-        input={newTodoText}
-        setInput={setNewTodoText}
-        wallet={wallet}
-        contract={writableContract}
-        refreshTodos={fetchTodos}
-        refreshWallet={updateWalletInfo}
-      />
+          {loading ? (
+            <p>Loading todos...</p>
+          ) : (
+            <>
+              <AddTodo
+                input={newTodoText}
+                setInput={setNewTodoText}
+                wallet={wallet}
+                contract={writableContract}
+                refreshTodos={fetchTodos}
+                refreshWallet={updateWalletInfo}
+              />
 
-      <TodoList
-        todos={todos}
-        wallet={wallet}
-        contract={writableContract}
-        refreshTodos={fetchTodos}
-        refreshWallet={updateWalletInfo}
-      />
+              <TodoList
+                todos={todos}
+                wallet={wallet}
+                contract={writableContract}
+                refreshTodos={fetchTodos}
+                refreshWallet={updateWalletInfo}
+              />
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }

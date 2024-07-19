@@ -1,4 +1,3 @@
-// src/components/WalletDetails.jsx
 const WalletDetails = ({ wallet }) => {
 
   return (

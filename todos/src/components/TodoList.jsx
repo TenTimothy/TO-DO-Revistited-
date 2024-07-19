@@ -1,4 +1,3 @@
-// src/components/TodoList.jsx
 const TodoList = ({ todos, wallet, contract, refreshTodos, refreshWallet }) => {
     const handleToggleTodo = async (id) => {
       try {
