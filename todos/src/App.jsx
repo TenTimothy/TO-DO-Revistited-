@@ -30,19 +30,15 @@ function App() {
           method: 'eth_requestAccounts',
         });
 
-        console.log("Accounts: ", accounts);
-        console.log("Signer: ", signer);
 
         setReadOnlyContract(todoService.getReadContract(window.provider));
         setWritableContract(todoService.getWriteContract(signer));
         updateWalletInfo(accounts);
 
-     
         window.ethereum.on('accountsChanged', (newAccounts) => {
           updateWalletInfo(newAccounts);
         });
 
-        
         window.ethereum.on('chainChanged', () => {
           window.location.reload();
         });
@@ -58,7 +54,9 @@ function App() {
     if (accounts.length > 0) {
       try {
         const balance = await window.provider.getBalance(accounts[0]);
-        setWallet({ accounts, balance: ethers.utils.formatEther(balance) });
+        const formattedBalance = ethers.utils ? ethers.utils.formatEther(balance.toString()) : (BigInt(balance).toString() / 1e18).toString();
+        console.log("Balance: ", formattedBalance);
+        setWallet({ accounts, balance: formattedBalance });
       } catch (error) {
         console.error('Error fetching balance:', error);
       }

@@ -1,9 +1,11 @@
-const WalletConnect = ({ wallet }) => {
+// src/components/WalletDetails.jsx
+const WalletDetails = ({ wallet }) => {
+
   return (
     <div className="wallet-container">
       <div className="wallet-info">
         <h4>Wallet Address:</h4>
-        <p>{wallet.accounts}</p>
+        <p>{wallet.accounts.length > 0 ? wallet.accounts[0] : 'Not connected'}</p>
       </div>
       <div className="wallet-info">
         <h4>Balance:</h4>
@@ -13,4 +15,4 @@ const WalletConnect = ({ wallet }) => {
   );
 };
 
-export default WalletConnect;
+export default WalletDetails;
