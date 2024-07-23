@@ -114,7 +114,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Blockchain TodoList</h1>
+        <h1>TodoList - Blockchain</h1>
       </header>
       <main>
         {renderAppContent()}
