@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import config from './config';
 
-class BlockchainTodoService {
+class BlockchainService {
   constructor() {
     this.contractAddress = config.contractAddress;
     this.abi = config.abi;
@@ -16,4 +16,4 @@ class BlockchainTodoService {
   }
 }
 
-export default BlockchainTodoService;
+export default BlockchainService;
