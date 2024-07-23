@@ -117,6 +117,7 @@ h1 {
 .toggle-task-button {
   background-color: #28a745;
   color: white;
+  margin-right: 10px; 
 }
 
 .toggle-task-button:hover {
